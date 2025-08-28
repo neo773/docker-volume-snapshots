@@ -1,0 +1,30 @@
+{
+  "editor.formatOnSave": false,
+  "files.eol": "auto",
+  "[typescript]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.oxc": "explicit",
+      "source.addMissingImports": "always",
+      "source.organizeImports": "always"
+    }
+  },
+  "[javascript]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.oxc": "explicit",
+      "source.addMissingImports": "always",
+      "source.organizeImports": "always"
+    }
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "javascript.format.enable": false,
+  "typescript.format.enable": false,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "files.associations": {
+    ".cursorrules": "markdown"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

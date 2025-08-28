@@ -1,0 +1,9 @@
+*.md
+.claude/
+.vscode/
+.oxlintrc.json
+.cursorrules
+.gitignore
+.prettierignore
+.prettierrc.json
+.prettierrc.json

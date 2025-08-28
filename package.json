@@ -1,0 +1,43 @@
+{
+  "name": "docker-volume-snapshot",
+  "author": "neo77",
+  "license": "MIT",
+  "version": "0.0.4",
+  "description": "Simple Interactive CLI tool for creating and restoring Docker volume snapshots using OrbStack's native export/import functionality.",
+  "main": "dist/entrypoint.js",
+  "bin": {
+    "dvs": "./dist/entrypoint.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neo773/docker-volume-snapshots.git"
+  },
+  "homepage": "https://github.com/neo773/docker-volume-snapshots#readme",
+  "bugs": {
+    "url": "https://github.com/neo773/docker-volume-snapshots/issues"
+  },
+  "scripts": {
+    "start": "tsx src/entrypoint.ts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build && npm run format",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "lint": "oxlint"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/prompts": "^2.4.9",
+    "oxlint": "^1.13.0",
+    "prettier": "^3.6.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "prompts": "^2.4.2"
+  }
+}
