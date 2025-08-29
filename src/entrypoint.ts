@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { createSnapshot } from "./commands/create-snapshot";
+import { deleteSnapshot } from "./commands/delete-snapshot";
 import { restoreSnapshot } from "./commands/restore-snapshot";
 import { setupContainer } from "./commands/setup-container";
 import { OrbStackCli } from "./helpers/cli/orbstack";
@@ -16,7 +17,8 @@ async function main(): Promise<void> {
     const action = await Prompts.select("Choose action:", [
       { title: "📦 Create Snapshot", value: "create" },
       { title: "📥 Restore Snapshot", value: "restore" },
-      { title: "⚙️ Setup Container", value: "setup" },
+      { title: "🗑️  Delete Snapshot", value: "delete" },
+      { title: "⚙️  Setup Container", value: "setup" },
     ]);
 
     switch (action) {
@@ -29,6 +31,12 @@ async function main(): Promise<void> {
       case "restore":
         await restoreSnapshot();
         return;
+      case "delete":
+        await deleteSnapshot();
+        await waitForKeyPress();
+        console.clear();
+        console.log("🚀 OrbStack Volume Manager\n");
+        break;
       case "setup":
         await setupContainer();
         await waitForKeyPress();
