@@ -1,15 +1,13 @@
 # OrbStack Volume Manager
 
-Simple Interactive CLI tool for creating and restoring Docker volume snapshots using OrbStack's native export/import functionality.
-
-<img width="768" height="477" alt="image" src="assets/images/hero.png" />
+CLI tool for creating and restoring Docker volume snapshots using OrbStack's native export/import functionality.
 
 ## Usage
 
 ```bash
 npm install -g docker-volume-snapshot
 
-dvs
+dvs --help
 ```
 
 ## Prerequisites
@@ -17,23 +15,48 @@ dvs
 - [OrbStack](https://orbstack.dev/) installed and running
 - Docker containers with named volumes
 
-## Installation
+## Commands
+
+### Setup a container-volume configuration
 
 ```bash
-bun install
+dvs setup --container my-app --volume my-app-data
 ```
 
-## Usage
+### Create a snapshot
 
 ```bash
-bun src/entrypoint.ts
+dvs create --config my-app
+dvs create --config my-app --filename my-backup
 ```
 
-### Commands
+### Restore a snapshot
 
-**Setup Container** - Configure container/volume pairs for easy snapshot management
-**Create Snapshot** - Export volume to compressed `.tar.zst` archive  
-**Restore Snapshot** - Import archive back to volume (overwrites existing data)
+```bash
+dvs restore --config my-app --snapshot my-backup.tar.zst --yes
+```
+
+### Delete a snapshot
+
+```bash
+dvs delete --snapshot my-backup.tar.zst --yes
+```
+
+### List resources
+
+```bash
+dvs list snapshots
+dvs list configs
+dvs list containers
+dvs list volumes --container my-app
+```
+
+All list commands support `--json` for machine-readable output:
+
+```bash
+dvs list snapshots --json
+dvs list configs --json
+```
 
 ## Configuration
 
@@ -54,14 +77,9 @@ Configurations are stored as JSON in `~/.orbstack-volume-manager/config.json`:
 
 Snapshots are saved to `~/orbstack-snapshots/` as compressed `.tar.zst` files with automatic timestamped names or custom filenames.
 
-## Architecture
+## Development
 
-```
-src/
-├── commands/           # Core operations
-├── helpers/
-│   ├── cli/           # OrbStack & Docker CLI wrappers  
-│   └── tui/           # Terminal UI utilities
-├── types/             # TypeScript interfaces
-└── entrypoint.ts      # Main CLI interface
+```bash
+bun install
+bun src/entrypoint.ts --help
 ```
