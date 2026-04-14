@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { Command } from "commander";
+import { Command, Help } from "commander";
 import { createSnapshot } from "./commands/create-snapshot";
 import { deleteSnapshot } from "./commands/delete-snapshot";
 import { restoreSnapshot } from "./commands/restore-snapshot";
@@ -15,7 +15,19 @@ const program = new Command();
 program
   .name("dvs")
   .description("Docker volume snapshot manager using OrbStack")
-  .version("0.0.6")
+  .version("0.0.7")
+  .configureHelp({
+    subcommandTerm(cmd) {
+      const args = cmd.registeredArguments
+        .map((argument) => argument.required ? `<${argument.name()}>` : `[${argument.name()}]`)
+        .join(" ");
+      const opts = cmd.options
+        .filter((option) => !option.hidden)
+        .map((option) => option.mandatory ? option.flags : `[${option.flags}]`)
+        .join(" ");
+      return [cmd.name(), args, opts].filter(Boolean).join(" ");
+    },
+  })
   .hook("preAction", () => {
     if (!OrbStackCli.isAvailable()) {
       console.error("Error: OrbStack CLI not found. Install OrbStack first.");
